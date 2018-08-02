@@ -1,0 +1,1002 @@
+</!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>ComparePicture</title> 
+
+	<style type="text/css">
+
+	.box
+	{
+		position: absolute;
+		width:100%;
+		top:15%;
+		height:75%;
+		justify-content: center;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		display:flex;
+		background: #E2E2E2;
+	}
+
+	.box-item 
+	{
+		width: 20%;
+		vertical-align: middle;
+		margin: 8px;
+		background-color: E2E2E2;
+		position: relative;
+		/*overflow-y:scroll*/
+	}
+
+	img
+	{
+		position: relative;
+		top:0%;
+		border:0;
+		margin:0;
+		padding:0;
+		width: 100%;
+		/*height: 100%;*/
+	}
+
+	.nonFrameDivShiJue,.FrameDivShiJue		/*div3,4中视觉图对应div*/
+	{
+		position: absolute;
+		padding-right: 15px;
+		width: 100%;
+		height: 100%;
+		z-index: 100;
+		overflow-y: scroll;
+	}
+
+	.nonFrameDivClient,.FrameDivClient 	/*div3,4中客户端图对应div*/
+	{
+		position: absolute;
+		float: left;
+		width: 100%;
+		height: 100%;
+		z-index: 100;
+		overflow-y: scroll;
+	}
+
+	.nonFrameDivGrid,.FrameDivGrid 		/*div3,4中网格对应div*/
+	{ 
+		position: absolute;
+		margin-right: 20px;
+		left: 0px;
+		width: 80%;
+		height: 100%;
+		z-index: 100;
+		/*overflow-y: scroll*/
+	}
+
+	div#nonFrameShiJueRange	/*div3下方视觉图透明度长条div*/
+	{
+		position: absolute;
+		left: 41.5%;
+		top:90%;
+		width: 16%;
+		height: 2%;
+		background: #FFFFFF;
+	}
+	div#nonFrameShiJueBox	/*div3下方视觉图透明度方框div*/
+	{
+		position: absolute;
+		top:0%;
+		height: 100%;
+		width: 10%;
+		background: #C1C1C1;
+	}
+
+	div#nonFrameClientRange	/*div3下方客户端图透明度长条div*/
+	{
+		position: absolute;
+		left: 41.5%;
+		top:92%;
+		width: 16%;
+		height: 2%;
+		background: #FFFFFF;
+	}
+	div#nonFrameClientBox	/*div3下方客户端图透明度方框div*/
+	{
+		position: absolute;
+		top:0%;
+		height: 100%;
+		width: 10%;
+		background: #C1C1C1;
+	}
+
+	div#nonFrameGrid	/*div3下方网格透明度长条div*/
+	{
+		position: absolute;
+		left: 41.5%;
+		top:94%;
+		width: 16%;
+		height: 2%;
+		background: #FFFFFF;
+	}
+	div#nonFrameGridBox	/*div3下方网格透明度方框div*/
+	{
+		position: absolute;
+		top:0%;
+		height: 100%;
+		width: 10%;
+		background: #C1C1C1;
+	}
+
+	div#nonFrameGridSize	/*div3下方网格大小方框div*/
+	{
+		position: absolute;
+		left: 41.5%;
+		top:96%;
+		width: 14%;
+		height: 2%;
+		/*background: #F1F1F1;*/
+	}
+
+	div#FrameShiJueRange	/*div4下方视觉图透明度长条div*/
+	{
+		position: absolute;
+		left: 62.5%;
+		top:90%;
+		width: 16%;
+		height: 2%;
+		background: #FFFFFF;
+	}
+	div#FrameShiJueBox	/*div4下方视觉图透明度方框div*/
+	{
+		position: absolute;
+		top:0%;
+		height: 100%;
+		width: 10%;
+		background: #C1C1C1;
+	}
+
+	div#FrameClientRange	/*div4下方客户端图透明度长条div*/
+	{
+		position: absolute;
+		left: 62.5%;
+		top:92%;
+		width: 16%;
+		height: 2%;
+		background: #FFFFFF;
+	}
+	div#FrameClientBox	/*div4下方客户端图透明度方框div*/
+	{
+		position: absolute;
+		top:0%;
+		height: 100%;
+		width: 10%;
+		background: #C1C1C1;
+	}
+
+	div#FrameGrid	/*div4下方网格透明度长条div*/
+	{
+		position: absolute;
+		left: 62.5%;
+		top:94%;
+		width: 16%;
+		height: 2%;
+		background: #FFFFFF;
+	}
+	div#FrameGridBox	/*div4下方网格透明度方框div*/
+	{
+		position: absolute;
+		top:0%;
+		height: 100%;
+		width: 10%;
+		background: #C1C1C1;
+	}
+
+	div#FrameGridSize	/*div4下方网格大小方框div*/
+	{
+		position: absolute;
+		left: 62.5%;
+		top:96%;
+		width: 14%;
+		height: 2%;
+		/*background: #F1F1F1;*/
+	}
+
+	/*div3-div5显示图片style*/
+	img#nonFramePicShiJue,#nonFramePicClient,#FramePicShiJue,#FramePicClient,#comparePixelPic
+	{
+		display:none;
+	}
+
+	.body_html
+	{
+		position: absolute;
+		top:90%;
+		left: 1%;
+		height: 10%;
+		width: 25%;
+		margin: 0 auto;
+		text-align: left;
+	}
+
+	.result_area
+	{
+		display: inline-block;
+		width: 70%;
+		margin-top: 10px;
+		height: 100%;
+
+	}
+	.character_span
+	{
+		float: left;
+	}
+
+	.result_area_character_rgb,.result_area_character_hex
+	{
+		float: middle;
+	}
+
+	.result_area_preview
+	{
+		display: inline-block;
+		float: right;
+		position: absolute;
+		top:15%;
+	}
+
+</style>
+
+</head>
+
+
+<body>
+
+	<h1 font size="100" color="black" style="text-align:center">图像对比小工具</h1>
+
+	<div>
+		<label style="position: absolute;left: 6%">
+			导入视觉图像<input accept="image/*" name="upimage" id="upload_file" type="file"
+			style="display:none" />
+		</label>
+
+		<label style="position: absolute;left: 26%">
+			导入客户端图像<input accept="image/*" name="upimage_2" id="upload_file_2" type="file" style="position: absolute;left: 10%;display:none" />
+		</label>
+
+		<input style="position: absolute;
+		top:10%;
+		left: 45%;
+		font-size:15;
+		height:4%;
+		margin-bottom: 10px;" 
+		type="button" 
+		id="showNonFramePic" 
+		value="显示原图对比" 
+		onclick="openNonFramePic()"/> 
+
+		<input style="position: absolute;
+		top:10%;
+		left: 65%;
+		font-size:15;
+		height:4%;
+		margin-bottom: 10px;" 
+		type="button" 
+		id="showFramePic" 
+		value="显示带边框对比图" 
+		onclick="openFramePic()"/> 
+
+		<input style="position: absolute;
+		top:10%;
+		left: 85%;
+		font-size:15;
+		height:4%;
+		margin-bottom: 10px;" 
+		type="button" 
+		id="showPixelPic" 
+		value="显示边框像素对比图" 
+		onclick="openPixelPic()"/> 
+	</div>
+
+	<div class="box">
+		<!-----------点击上传本地视觉图------------->
+		<div class="box-item" style="overflow-y:scroll" id="picShiJue">
+			<img src="" id="create_img_base64" />
+		</div>
+
+		<!-----------点击上传本地客户端图------------->
+		<div class="box-item" style="overflow-y:scroll" id="picClient">
+			<img src="" id="create_img_base64_2" />
+		</div>
+
+		<!-----------显示无边框对比图------------->
+		<div class="box-item">
+			<div class="nonFrameDivShiJue" id="nonFrameDivShiJue">
+				<img src="ShiJueOri.jpg" id="nonFramePicShiJue"/>
+			</div>
+			<div class="nonFrameDivClient" id="nonFrameDivClient">
+				<img src="ClientOri.jpg" id="nonFramePicClient"/>
+			</div>
+			<div class="nonFrameDivGrid" id="nonFrameDivGrid" >
+				<canvas id="canvasGrid" width="270px" height="509px">对不起你的浏览器不支持canvas
+				</canvas>
+			</div>
+		</div>
+
+		<!-----------显示有边框对比图------------->
+		<div class="box-item">
+			<div class="FrameDivShiJue" id="FrameDivShiJue">
+				<img src="ShiJue.jpg" id="FramePicShiJue"/>
+			</div>
+			<div class="FrameDivClient" id="FrameDivClient">
+				<img src="Client.jpg" id="FramePicClient"/>
+			</div>
+			<div class="FrameDivGrid" id="FrameDivGrid" >
+				<canvas id="canvasGrid2" width="270px" height="509px">对不起你的浏览器不支持canvas
+				</canvas>
+			</div>
+		</div>
+
+		<!-----------显示像素对比图------------->
+		<div class="box-item" style="overflow-y:scroll" id="compare">
+			<img src="difference2.jpg" id="comparePixelPic"/>
+		</div>
+
+	</div>      
+
+	<!------------------------绘制透明度控制条------------------>
+
+	<!--无边框视觉图透明度长条与方框-->
+	<div id="nonFrameShiJueRange">	
+		<div id="nonFrameShiJueBox">
+		</div>
+	</div>
+	<!--无边框客户端图透明度长条与方框-->
+	<div id="nonFrameClientRange">	
+		<div id="nonFrameClientBox">
+		</div>
+	</div>
+	<!--无边框网格透明度长条与方框-->
+	<div id="nonFrameGrid">	
+		<div id="nonFrameGridBox">
+		</div>
+	</div>
+	<!--无边框网格大小文本框-->
+	<div id="nonFrameGridSize">	
+		<input type="text" placeholder="请输入网格大小" id="nonFrameGridSizeText"/>
+		<input type="button" value="OK" onclick="getValue()"/>
+	</div>
+
+	<!--有边框视觉图透明度长条与方框-->
+	<div id="FrameShiJueRange">	
+		<div id="FrameShiJueBox">
+		</div>
+	</div>
+	<!--有边框客户端图透明度长条与方框-->
+	<div id="FrameClientRange">	
+		<div id="FrameClientBox">
+		</div>
+	</div>
+	<!--有边框网格透明度长条与方框-->
+	<div id="FrameGrid">	
+		<div id="FrameGridBox">
+		</div>
+	</div>
+	<!--无边框网格大小文本框-->
+	<div id="FrameGridSize">	
+		<input type="text" placeholder="请输入网格大小" id="FrameGridSizeText"/>
+		<input type="button" value="OK" onclick="getValue2()"/>
+	</div>
+
+	<!-----------------------绘制RGB颜色显示窗口------------------->
+	<div class="body_html">
+		<div class="result_area">
+			<div class="result_area_character">
+				<div>
+					<span class="character_span">RGB颜色值：</span>
+					<div class="result_area_character_rgb" id="result_rgb">
+						255,255,255
+					</div>              
+				</div>
+				<div>
+					<span class="character_span">十六进制颜色码：</span>
+					<div class="result_area_character_hex" id="result_hex">
+						#FFFFFF
+					</div>              
+				</div>
+			</div>
+
+			
+		</div>
+		<div class="result_area_preview">
+			<div id="result_preview" style="background: #F1F1F1; width: 40px;height: 40px;">
+			</div>
+		</div>
+
+		<canvas id="canvasPickerColor" style="opacity: 0;"></canvas>
+	</div>
+
+</body>
+
+</html>
+
+<!------------------------获取div3网格文本框大小数字------------------------>
+
+<script type="text/javascript">
+	
+	
+
+</script>
+
+<!----------------------div3-div5单击按钮显示图片---------------------->
+<script>
+	function openNonFramePic()
+	{
+		document.getElementById('nonFramePicShiJue').style.display='block';
+		document.getElementById('nonFramePicClient').style.display='block';
+	}
+</script>
+
+<script>
+	function openFramePic()
+	{
+		document.getElementById('FramePicShiJue').style.display='block';
+		document.getElementById('FramePicClient').style.display='block';
+	}
+</script>
+
+<script>
+	function openPixelPic()
+	{
+		document.getElementById('comparePixelPic').style.display='block';
+	}
+</script>
+
+<!----------------------------无边框视觉图滚动条------------------------------->
+
+<script type="text/javascript">
+
+//实现通过滚动条来控制另一个div的宽高和透明度，滚动条只能左右滚动
+var nonFrameShiJueRange = document.getElementById("nonFrameShiJueRange");
+var nonFrameShiJueBox = document.getElementById("nonFrameShiJueBox");
+var nonFrameShiJueVar = document.getElementById("nonFrameDivShiJue");
+
+var x = 0;
+var y = 0;
+
+
+nonFrameShiJueBox.onmousedown = function(ev) 
+{
+	var oEvent = ev || event;
+	x = oEvent.clientX - nonFrameShiJueBox.offsetLeft;
+	document.onmousemove = function(ev) 
+	{
+		var oEvent = ev || event;
+		var Left = oEvent.clientX - x;
+		if(Left < 0) 
+		{
+			Left = 0;
+		} else if(Left > nonFrameShiJueRange.offsetWidth - nonFrameShiJueBox.offsetWidth) 
+		{
+			Left = nonFrameShiJueRange.offsetWidth - nonFrameShiJueBox.offsetWidth;
+		}
+		nonFrameShiJueBox.style.left = Left + "px";
+
+		//自定义一个变量scale，表示滚动条滚动的距离和滚动条可以滚动的最大距离的的比
+		var scale = Left / (nonFrameShiJueRange.offsetWidth - nonFrameShiJueBox.offsetWidth);
+		
+		//通过滑块控制side的颜色的透明度
+		nonFrameShiJueVar.style.opacity = scale;
+		nonFrameShiJueVar.style.filter = "alpha(opacity:" + scale * 100 + ")";
+	}
+	document.onmouseup = function() 
+	{
+		document.onmousemove = null;
+		document.onmouseup = null;
+	}
+	return false;
+}
+</script>
+
+<!---------------------------无边框客户端图滚动条------------------------------>
+
+<script type="text/javascript">
+
+//实现通过滚动条来控制另一个div的宽高和透明度，滚动条只能左右滚动
+var nonFrameClientRange = document.getElementById("nonFrameClientRange");
+var nonFrameClientBox = document.getElementById("nonFrameClientBox");
+var nonFrameClientVar = document.getElementById("nonFrameDivClient");
+
+var x = 0;
+var y = 0;
+
+
+nonFrameClientBox.onmousedown = function(ev) 
+{
+	var oEvent = ev || event;
+	x = oEvent.clientX - nonFrameClientBox.offsetLeft;
+	document.onmousemove = function(ev) 
+	{
+		var oEvent = ev || event;
+		var Left = oEvent.clientX - x;
+		if(Left < 0) 
+		{
+			Left = 0;
+		} else if(Left > nonFrameClientRange.offsetWidth - nonFrameClientBox.offsetWidth) 
+		{
+			Left = nonFrameClientRange.offsetWidth - nonFrameClientBox.offsetWidth;
+		}
+		nonFrameClientBox.style.left = Left + "px";
+
+		//自定义一个变量scale，表示滚动条滚动的距离和滚动条可以滚动的最大距离的的比
+		var scale = Left / (nonFrameClientRange.offsetWidth - nonFrameClientBox.offsetWidth);
+		
+		//通过滑块控制side的颜色的透明度
+		nonFrameClientVar.style.opacity = scale;
+		nonFrameClientVar.style.filter = "alpha(opacity:" + scale * 100 + ")";
+	}
+	document.onmouseup = function() 
+	{
+		document.onmousemove = null;
+		document.onmouseup = null;
+	}
+	return false;
+}
+</script>
+
+
+<!-------------------------无边框网格透明度滚动条------------------------------->
+
+<script type="text/javascript">
+
+//实现通过滚动条来控制另一个div的宽高和透明度，滚动条只能左右滚动
+var nonFrameGrid = document.getElementById("nonFrameGrid");
+var nonFrameGridBox = document.getElementById("nonFrameGridBox");
+var nonFrameDivGridVar = document.getElementById("nonFrameDivGrid");
+
+var x = 0;
+var y = 0;
+
+
+nonFrameGridBox.onmousedown = function(ev) 
+{
+	var oEvent = ev || event;
+	x = oEvent.clientX - nonFrameGridBox.offsetLeft;
+	document.onmousemove = function(ev) 
+	{
+		var oEvent = ev || event;
+		var Left = oEvent.clientX - x;
+		if(Left < 0) 
+		{
+			Left = 0;
+		} else if(Left > nonFrameGrid.offsetWidth - nonFrameGridBox.offsetWidth) 
+		{
+			Left = nonFrameGrid.offsetWidth - nonFrameGridBox.offsetWidth;
+		}
+		nonFrameGridBox.style.left = Left + "px";
+
+		//自定义一个变量scale，表示滚动条滚动的距离和滚动条可以滚动的最大距离的的比
+		var scale = Left / (nonFrameGrid.offsetWidth - nonFrameGridBox.offsetWidth);
+		
+		//通过滑块控制side的颜色的透明度
+		nonFrameDivGridVar.style.opacity = scale;
+		nonFrameDivGridVar.style.filter = "alpha(opacity:" + scale * 100 + ")";
+	}
+	document.onmouseup = function() 
+	{
+		document.onmousemove = null;
+		document.onmouseup = null;
+	}
+	return false;
+}
+</script>
+
+
+<!----------------------------有边框视觉图滚动条-------------------------------->
+
+<script type="text/javascript">
+
+//实现通过滚动条来控制另一个div的宽高和透明度，滚动条只能左右滚动
+var FrameShiJueRange = document.getElementById("FrameShiJueRange");
+var FrameShiJueBox = document.getElementById("FrameShiJueBox");
+var FrameShiJueVar = document.getElementById("FrameDivShiJue");
+
+var x = 0;
+var y = 0;
+
+
+FrameShiJueBox.onmousedown = function(ev) 
+{
+	var oEvent = ev || event;
+	x = oEvent.clientX - FrameShiJueBox.offsetLeft;
+	document.onmousemove = function(ev) 
+	{
+		var oEvent = ev || event;
+		var Left = oEvent.clientX - x;
+		if(Left < 0) 
+		{
+			Left = 0;
+		} else if(Left > FrameShiJueRange.offsetWidth - FrameShiJueBox.offsetWidth) 
+		{
+			Left = FrameShiJueRange.offsetWidth - FrameShiJueBox.offsetWidth;
+		}
+		FrameShiJueBox.style.left = Left + "px";
+
+		//自定义一个变量scale，表示滚动条滚动的距离和滚动条可以滚动的最大距离的的比
+		var scale = Left / (FrameShiJueRange.offsetWidth - FrameShiJueBox.offsetWidth);
+		
+		//通过滑块控制side的颜色的透明度
+		FrameShiJueVar.style.opacity = scale;
+		FrameShiJueVar.style.filter = "alpha(opacity:" + scale * 100 + ")";
+	}
+	document.onmouseup = function() 
+	{
+		document.onmousemove = null;
+		document.onmouseup = null;
+	}
+	return false;
+}
+</script>
+
+<!------------------------------有边框客户端图滚动条-------------------------------->
+
+<script type="text/javascript">
+
+//实现通过滚动条来控制另一个div的宽高和透明度，滚动条只能左右滚动
+var FrameClientRange = document.getElementById("FrameClientRange");
+var FrameClientBox = document.getElementById("FrameClientBox");
+var FrameClientVar = document.getElementById("FrameDivClient");
+
+var x = 0;
+var y = 0;
+
+
+FrameClientBox.onmousedown = function(ev) 
+{
+	var oEvent = ev || event;
+	x = oEvent.clientX - FrameClientBox.offsetLeft;
+	document.onmousemove = function(ev) 
+	{
+		var oEvent = ev || event;
+		var Left = oEvent.clientX - x;
+		if(Left < 0) 
+		{
+			Left = 0;
+		} else if(Left > FrameClientRange.offsetWidth - FrameClientBox.offsetWidth) 
+		{
+			Left = FrameClientRange.offsetWidth - FrameClientBox.offsetWidth;
+		}
+		FrameClientBox.style.left = Left + "px";
+
+		//自定义一个变量scale，表示滚动条滚动的距离和滚动条可以滚动的最大距离的的比
+		var scale = Left / (FrameClientRange.offsetWidth - FrameClientBox.offsetWidth);
+		
+		//通过滑块控制side的颜色的透明度
+		FrameClientVar.style.opacity = scale;
+		FrameClientVar.style.filter = "alpha(opacity:" + scale * 100 + ")";
+	}
+	document.onmouseup = function() 
+	{
+		document.onmousemove = null;
+		document.onmouseup = null;
+	}
+	return false;
+}
+</script>
+
+
+<!---------------------------有边框网格透明度滚动条----------------------------->
+
+<script type="text/javascript">
+
+//实现通过滚动条来控制另一个div的宽高和透明度，滚动条只能左右滚动
+var FrameGrid = document.getElementById("FrameGrid");
+var FrameGridBox = document.getElementById("FrameGridBox");
+var FrameDivGridVar = document.getElementById("FrameDivGrid");
+
+var x = 0;
+var y = 0;
+
+
+FrameGridBox.onmousedown = function(ev) 
+{
+	var oEvent = ev || event;
+	x = oEvent.clientX - FrameGridBox.offsetLeft;
+	document.onmousemove = function(ev) 
+	{
+		var oEvent = ev || event;
+		var Left = oEvent.clientX - x;
+		if(Left < 0) 
+		{
+			Left = 0;
+		} else if(Left > FrameGrid.offsetWidth - FrameGridBox.offsetWidth) 
+		{
+			Left = FrameGrid.offsetWidth - FrameGridBox.offsetWidth;
+		}
+		FrameGridBox.style.left = Left + "px";
+
+		//自定义一个变量scale，表示滚动条滚动的距离和滚动条可以滚动的最大距离的的比
+		var scale = Left / (FrameGrid.offsetWidth - FrameGridBox.offsetWidth);
+		
+		//通过滑块控制side的颜色的透明度
+		FrameDivGridVar.style.opacity = scale;
+		FrameDivGridVar.style.filter = "alpha(opacity:" + scale * 100 + ")";
+	}
+	document.onmouseup = function() 
+	{
+		document.onmousemove = null;
+		document.onmouseup = null;
+	}
+	return false;
+}
+</script>
+
+
+<!----------------------在无边框图中根据文本框输入大小绘制网格--------------------------->
+
+<script type="text/javascript">
+	
+	function getValue()
+	{
+		var nonFrameSize = document.getElementById("nonFrameGridSizeText").value*1;
+
+		canvas = document.getElementById("canvasGrid");
+		context = canvas.getContext("2d");
+
+		context.save();
+		context.lineWidth = 1;
+		context.strokeStyle = 'gray';
+		for(var i = nonFrameSize + 0.5; i < context.canvas.height; i += nonFrameSize)
+		{
+			context.beginPath();
+			context.moveTo(0, i);
+			context.lineTo(context.canvas.width, i);
+			context.stroke();
+		}
+
+		for(var i = nonFrameSize + 0.5; i < context.canvas.width; i += nonFrameSize)
+		{
+			context.beginPath();
+			context.moveTo(i, 0);
+			context.lineTo(i, context.canvas.height);
+			context.stroke();
+		}
+		context.restore();
+	}
+
+</script>
+
+<!----------------------在有边框图中根据文本框输入大小绘制网格--------------------------->
+
+<script type="text/javascript">
+	
+	function getValue2()
+	{
+		var nonFrameSize = document.getElementById("FrameGridSizeText").value*1;
+
+		canvas = document.getElementById("canvasGrid2");
+		context = canvas.getContext("2d");
+
+		context.save();
+		context.lineWidth = 1;
+		context.strokeStyle = 'gray';
+		for(var i = nonFrameSize + 0.5; i < context.canvas.height; i += nonFrameSize)
+		{
+			context.beginPath();
+			context.moveTo(0, i);
+			context.lineTo(context.canvas.width, i);
+			context.stroke();
+		}
+
+		for(var i = nonFrameSize + 0.5; i < context.canvas.width; i += nonFrameSize)
+		{
+			context.beginPath();
+			context.moveTo(i, 0);
+			context.lineTo(i, context.canvas.height);
+			context.stroke();
+		}
+		context.restore();
+	}
+
+</script>
+
+
+<!---------------------------根据鼠标单击位置选择显示颜色-------------------------------->
+
+<script type="text/javascript">
+
+
+//获取对象的方法
+function $f(id) 
+{
+	return document.getElementById(id);
+}
+
+//绑定input的文本改变事件
+//event  onchange;
+/********start**********/
+$f("upload_file").onchange = function () {
+    // $f("update_file_label").innerHTML = this.value;
+    createBase64();
+};
+/********end*********/
+
+//绑定input的文本改变事件
+//event  onchange;
+/********start**********/
+$f("upload_file_2").onchange = function () {
+    // $f("update_file_label").innerHTML = this.value;
+    createBase64_2();
+};
+/********end*********/
+
+//将本地的图片生成base64编码
+//防止getImageData()时出现跨域请求失败。（canvas的方法）
+//method  createBase64();
+/********start**********/                   
+function createBase64() {
+	var file = $f('upload_file').files[0];
+	if(!/image\/\w+/.test(file.type))
+	{   
+		alert("请确保文件为图像类型"); 
+		return false; 
+	}
+    r = new FileReader();  //本地预览
+    r.onload = function()
+    {
+    	var base64img = r.result;
+        // $f('img_size').innerHTML = "    图片大小：" + Math.round(r.result.length/1024*1000)/1000 + " KB";
+        create_img_base64(base64img);
+    }
+    r.readAsDataURL(file);    //Base64
+}
+/********end*********/
+
+//将本地的图片生成base64编码
+//防止getImageData()时出现跨域请求失败。（canvas的方法）
+//method  createBase64();
+/********start**********/                   
+function createBase64_2() {
+	var file2 = $f('upload_file_2').files[0];
+	if(!/image\/\w+/.test(file2.type)){   
+		alert("请确保文件为图像类型"); 
+		return false; 
+	}
+    r = new FileReader();  //本地预览
+    r.onload = function(){
+    	var base64img = r.result;
+        // $f('img_size').innerHTML = "    图片大小：" + Math.round(r.result.length/1024*1000)/1000 + " KB";
+        create_img_base64_2(base64img);
+    }
+    r.readAsDataURL(file2);    //Base64
+}
+/********end*********/
+
+//采用base64编码显示图片
+//防止getImageData()时出现跨域请求失败。
+//method  create_img_base64(base64img);
+/********start**********/
+function create_img_base64(base64img) {
+	$f('create_img_base64').src = base64img;
+}
+/********end*********/
+
+//采用base64编码显示图片
+//防止getImageData()时出现跨域请求失败。
+//method  create_img_base64_2(base64img);
+/********start**********/
+function create_img_base64_2(base64img) {
+	$f('create_img_base64_2').src = base64img;
+}
+/********end*********/
+
+//create_img_base64图片点击事件添加 Conversion
+//method  RGBtoHex(R,G,B);
+/********start**********/
+var imgd = $f('create_img_base64');
+imgd.addEventListener('click', function(event) 
+{
+	var clickX = event.offsetX;
+	var clickY = event.offsetY;
+
+	var canvas  = $f('canvasPickerColor');
+	var tart = canvas.getContext('2d');
+
+	var img = new Image();
+	img.src = imgd.getAttribute('src');
+
+    var width = imgd.width;		//获取create_img_base64当前显示的宽度与长度
+    var height = imgd.height;
+
+    var obj = processingSize(clickX,clickY,width,height,'create_img_base64');
+
+    tart.drawImage(imgd,obj.x,obj.y,1,1,0,0,1,1);
+    var imgData=tart.getImageData(0,0,1,1);
+
+    //显示提取的值
+    $f('result_rgb').innerHTML = imgData.data[0] +','+imgData.data[1]+','+imgData.data[2];
+    var hex = "#" + RGBtoHex(imgData.data[0],imgData.data[1],imgData.data[2]);
+    $f('result_hex').innerHTML = hex
+
+    $f('result_preview').style.backgroundColor = hex;
+    
+});
+/********end*********/
+
+//create_img_base64_2图片点击事件添加 Conversion
+//method  RGBtoHex(R,G,B);
+/********start**********/
+var imgd2 = $f('create_img_base64_2');
+imgd2.addEventListener('click', function(event) {
+	var clickX = event.offsetX;
+	var clickY = event.offsetY;
+
+	var canvas  = $f('canvasPickerColor');
+	var tart = canvas.getContext('2d');
+
+	var img = new Image();
+	img.src = imgd2.getAttribute('src');
+
+    var width = imgd2.width;		//获取create_img_base64当前显示的宽度与长度
+    var height = imgd2.height;
+
+    var obj = processingSize(clickX,clickY,width,height,'create_img_base64_2');
+
+    // var obj = processingSize(clickX,clickY,320,280,'create_img_base64_2');
+
+    tart.drawImage(imgd2,obj.x,obj.y,1,1,0,0,1,1);
+    var imgData=tart.getImageData(0,0,1,1);
+
+    //显示提取的值
+    $f('result_rgb').innerHTML = imgData.data[0] +','+imgData.data[1]+','+imgData.data[2];
+    var hex = "#" + RGBtoHex(imgData.data[0],imgData.data[1],imgData.data[2]);
+    $f('result_hex').innerHTML = hex;
+
+    $f('result_preview').style.backgroundColor = hex;
+    
+});
+/********end*********/
+
+//缩放处理方法
+/********start**********/
+function processingSize(dx,dy,dw,dh,id){
+	var sw = $f(id).naturalWidth;
+	var sh = $f(id).naturalHeight;
+	var sx = dx*sw/dw;
+	var sy = dy*sh/dh;
+	return {x:sx,y:sy};
+}
+/********end*********/
+
+//RGB-to-Hex Conversion
+/********start**********/
+function RGBtoHex(R,G,B) 
+{
+	return toHex(R)+toHex(G)+toHex(B)
+}
+
+function toHex(N) {
+	if (N==null) 
+		return "00"; 
+	N=parseInt(N); 
+	if (N==0 || isNaN(N)) 
+		return "00"; 
+	N=Math.max(0,N); 
+	N=Math.min(N,255); 
+	N=Math.round(N); 
+	return "0123456789ABCDEF".charAt((N-N%16)/16) + "0123456789ABCDEF".charAt(N%16); 
+}
+/********end*********/
+
+//Hex-to-RGB Conversion
+//method  HexToR();HexToG();HexToB();
+/********start**********/
+R = HexToR("#FFFFFF");
+G = HexToG("#FFFFFF");
+B = HexToB("#FFFFFF");
+
+function HexToR(h) { return parseInt((cutHex(h)).substring(0,2),16) }
+function HexToG(h) { return parseInt((cutHex(h)).substring(2,4),16) }
+function HexToB(h) { return parseInt((cutHex(h)).substring(4,6),16) }
+function cutHex(h) { return (h.charAt(0)=="#") ? h.substring(1,7) : h}
+/********end*********/
+
+</script>
